@@ -12,7 +12,7 @@ Alejandro Garcia
 
 ## How to Play
 
-Download the one of the .exe files for the current build state.
+Download the one of the .zip files for the current build state and extract it. Then start the application. 
 
 ______________________________________________________________________________
 Developed with Unreal Engine 4.27
