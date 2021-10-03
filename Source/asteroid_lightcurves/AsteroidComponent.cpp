@@ -29,15 +29,15 @@ void UAsteroidComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void UAsteroidComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	currRotation += DeltaTime * rotationSpeed;
-	double currRotationRad = FMath::DegreesToRadians(currRotation);
+	float currRotationRad = FMath::DegreesToRadians(currRotation);
 	UE_LOG(LogTemp, Warning, TEXT("Max:\t%f\tCurrent:\t%f"), maxDotProductSum, computeDotProducts(FVector(cos(currRotationRad), sin(currRotationRad), 0.0)));
 
 	
 }
-	
-double UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignoreLightDirection)
+
+float UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignoreLightDirection)
 {
-	double ret = 0.;
+	float ret = 0.;
 
 	UStaticMesh* mesh = this->GetStaticMesh();
 

@@ -24,7 +24,9 @@ class ASTEROID_LIGHTCURVES_API UAsteroidComponent : public UStaticMeshComponent
 	float rotationSpeed; //degrees/s
 
 	void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	double computeDotProducts(FVector lightDirection, bool ignoreLightDirection = false);
-	double maxDotProductSum;
-	double currRotation;
+
+	UFUNCTION(BlueprintCallable)
+	float computeDotProducts(FVector lightDirection, bool ignoreLightDirection = false);
+	float maxDotProductSum;
+	float currRotation;
 };
