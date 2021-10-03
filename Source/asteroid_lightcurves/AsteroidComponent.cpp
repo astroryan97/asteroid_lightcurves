@@ -4,6 +4,7 @@
 #include "AsteroidComponent.h"
 #include "StaticMeshResources.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 UAsteroidComponent::UAsteroidComponent()
 {}
@@ -30,7 +31,7 @@ void UAsteroidComponent::TickComponent(float DeltaTime, enum ELevelTick TickType
 {
 	currRotation += DeltaTime * rotationSpeed;
 	float currRotationRad = FMath::DegreesToRadians(currRotation);
-	UE_LOG(LogTemp, Warning, TEXT("Max:\t%f\tCurrent:\t%f"), maxDotProductSum, computeDotProducts(FVector(cos(currRotationRad), sin(currRotationRad), 0.0)));
+	//UE_LOG(LogTemp, Warning, TEXT("Max:\t%f\tCurrent:\t%f"), maxDotProductSum, computeDotProducts(FVector(cos(currRotationRad), sin(currRotationRad), 0.0)));
 
 	
 }
@@ -51,6 +52,13 @@ float UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignore
 		FStaticMeshLODResources& LODModel = mesh->RenderData->LODResources[LODIndex];
 		FIndexArrayView Indices = LODModel.IndexBuffer.GetArrayView();
 
+		TArray<AActor*> FoundActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APawn::StaticClass(), FoundActors);
+		//UE_LOG(LogTemp, Warning, TEXT("Num actors found:%d"), FoundActors.Num());
+
+		FVector forwardVector = -FoundActors[0]->GetActorForwardVector();
+		FVector sunVector = FVector(1, 0, 0);
+
 		if (mesh->RenderData->LODResources.Num() > 0)
 		{
 
@@ -63,12 +71,25 @@ float UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignore
 					FVector n2 = VertexBuffer->StaticMeshVertexBuffer.VertexTangentZ(i + 1);
 					FVector n3 = VertexBuffer->StaticMeshVertexBuffer.VertexTangentZ(i + 2);
 
+					FVector p1 = VertexBuffer->PositionVertexBuffer.VertexPosition(i);
+					FVector p2 = VertexBuffer->PositionVertexBuffer.VertexPosition(i + 1);
+					FVector p3 = VertexBuffer->PositionVertexBuffer.VertexPosition(i + 2);
+
+					FVector side1 = p2 - p1;
+					FVector side2 = p3 - p1;
+
+					float area = (FVector::CrossProduct(side1, side2).Size())/2;
+
 					FVector triN = (n1 + n2 + n3) / 3.;
 
+					FVector reflect = sunVector - 2.*(FVector::DotProduct(sunVector, triN))*triN;
+					float cameraret = FVector::DotProduct(reflect, forwardVector);
+
 					if (!ignoreLightDirection)
-						ret += FMath::Max(0.f, FVector::DotProduct(lightDirection, triN));
+						//ret += area*FMath::Max(0.f, FVector::DotProduct(lightDirection, triN));
+						ret += area * cameraret;
 					else
-						ret += triN.Size();
+						ret += area*triN.Size();
 
 					//UE_LOG(LogTemp, Warning, TEXT("Triangle %d: %f\t%f\t%f"), i / 3, triN.X, triN.Y, triN.Z);
 				}
