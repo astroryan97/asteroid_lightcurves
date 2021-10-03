@@ -3,7 +3,7 @@
 ## Team: Rocketship 27
 
 Authors:
-Ryan Johnston 
+Ryan Johnston, 
 Alejandro Garcia
 
 ### App Description:
