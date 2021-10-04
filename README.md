@@ -1,22 +1,18 @@
-# When Light Curves Throw us Curve Balls
-## An App Developed by Rocketship 27 in Unreal Engine 4.27
+# AstroCurve
+## Challenge: When Light Curves Throw us Curve Balls
+## Team: Rocketship 27
 
-Ryan Johnston 
+Authors:
+Ryan Johnston, 
 Alejandro Garcia
 
+### App Description:
 
-Basic App Description:
+**AstroCurve** is a versatile interactive computer application developed in Unreal Engine 4. A user can select various real and highly exaggerated asteroid models of different shapes, and using sliders, a user can adjust the asteroids rotation speed along any axis they choose.  AstroCurve allows people of all ages and education levels to play with an asteroid and it's rotation to explore how the light curve behaves based on its shape and rotation. AstroCurve serves as a spiritual successor to the KillerAsteroids Light Curves web application which has now been shutdown after Adobe Flash went offline in January 2021.
 
-After pressing start a user will be presented with a library (or list) of choices of  'asteroid' objects (maybe categorized into man-made, real asteroids, basic shapes etc). Users could also upload their own model from a file. (Maybe a user could select multiple objects to compare).
+## How to Play
 
-Once inside the app you can also change which object(s) you want.
-
-After model selection is complete a user will be presented with a layout similar to the one I sent you last week. There will be a panel to change various attributes such as rotation speed, rotational phase, albedo/surface reflectance, shape, distance to asteroid (probably can ignore this for our purposes) . Maybe a user may be able to change the rotational axis as well.
-
-The program starts 'frozen' until the user hits 'play'/'animate', the object then starts rotating while the graph of brightness over time is filled out. Maybe the graph can be intractable such that you can see the x and y values highlighted over time. 
-
-The sun is fixed behind the user (maybe make it possible to change the position of the sun)
-
+Download the one of the .zip files for the current build state and extract it. Then start the application. 
 
 ______________________________________________________________________________
-Developed with Unreal Engine 4
+Developed with Unreal Engine 4.27
