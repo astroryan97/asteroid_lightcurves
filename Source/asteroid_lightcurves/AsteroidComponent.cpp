@@ -52,12 +52,12 @@ float UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignore
 		FStaticMeshLODResources& LODModel = mesh->RenderData->LODResources[LODIndex];
 		FIndexArrayView Indices = LODModel.IndexBuffer.GetArrayView();
 
-		TArray<AActor*> FoundActors;
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), APawn::StaticClass(), FoundActors);
+		//TArray<AActor*> FoundActors;
+		//UGameplayStatics::GetAllActorsOfClass(GetWorld(), APawn::StaticClass(), FoundActors);
 		//UE_LOG(LogTemp, Warning, TEXT("Num actors found:%d"), FoundActors.Num());
 
-		FVector forwardVector = -FoundActors[0]->GetActorForwardVector();
-		FVector sunVector = FVector(1, 0, 0);
+		//FVector forwardVector = -FoundActors[0]->GetActorForwardVector();
+		//FVector sunVector = lightDirection;
 
 		if (mesh->RenderData->LODResources.Num() > 0)
 		{
@@ -82,12 +82,12 @@ float UAsteroidComponent::computeDotProducts(FVector lightDirection, bool ignore
 
 					FVector triN = (n1 + n2 + n3) / 3.;
 
-					FVector reflect = sunVector - 2.*(FVector::DotProduct(sunVector, triN))*triN;
-					float cameraret = FVector::DotProduct(reflect, forwardVector);
+					//FVector reflect = sunVector - 2.*(FVector::DotProduct(sunVector, triN))*triN;
+					//float cameraret = FVector::DotProduct(reflect, forwardVector);
 
 					if (!ignoreLightDirection)
-						//ret += area*FMath::Max(0.f, FVector::DotProduct(lightDirection, triN));
-						ret += area * cameraret;
+						ret += area*FMath::Max(0.f, FVector::DotProduct(lightDirection, triN));
+						//ret += area * cameraret;
 					else
 						ret += area*triN.Size();
 
